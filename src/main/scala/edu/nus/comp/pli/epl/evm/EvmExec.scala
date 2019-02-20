@@ -61,7 +61,8 @@ case class EvmState(program: Seq[Instruction], opdStack: List[Result]) {
       EvmState(restProgram, ResultInt(n) :: opds)
 
     /*add your code for bool*/
-    //case (LDCB(b) :: restProgram, opds) =>
+    case (LDCB(b) :: restProgram, opds) =>
+      EvmState(restProgram, ResultBool(b) :: opds)
 
     /*add your code for if else statement
     * hint:
