@@ -7,10 +7,14 @@ object EplDenotationalSemantics {
   private def compileHelper(expr: Expression): Seq[Instruction] = expr match {
     case Bin(Add, left, right) => compileHelper(left) ++ compileHelper(right) :+ PLUS
     /*add your code for sub,mul,div and pow*/
-    //case Bin(Sub, left, right) =>
-    //case Bin(Mul, left, right) =>
-    //case Bin(Div, left, right) =>
-    //case Bin(Pow, left, right) =>
+    case Bin(Sub, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ MINUS
+    case Bin(Mul, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ TIMES
+    case Bin(Div, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ DIV
+    case Bin(Pow, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ POW
     case Bin(And, left, right) =>  compileHelper(left) ++ compileHelper(right) :+ AND
     /*add your code for or*/
     //case Bin(Or, left, right) =>
