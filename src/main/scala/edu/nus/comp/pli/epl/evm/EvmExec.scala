@@ -50,7 +50,13 @@ case class EvmState(program: Seq[Instruction], opdStack: List[Result]) {
     case (EQ :: restProgram, ResultInt(n2) :: ResultInt(n1) :: restOpds) =>
       EvmState(restProgram, ResultBool(n1 == n2) :: restOpds)
 
+    case (EQ :: restProgram, ResultBool(n2) :: ResultBool(n1) :: restOpds) =>
+      EvmState(restProgram, ResultBool(n1 == n2) :: restOpds)
+
     case (NEQ :: restProgram, ResultInt(n2) :: ResultInt(n1) :: restOpds) =>
+      EvmState(restProgram, ResultBool(n1 != n2) :: restOpds)
+
+    case (NEQ :: restProgram, ResultBool(n2) :: ResultBool(n1) :: restOpds) =>
       EvmState(restProgram, ResultBool(n1 != n2) :: restOpds)
 
     case (NOT :: restProgram, ResultBool(b) :: restOpds) =>
