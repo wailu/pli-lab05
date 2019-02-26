@@ -71,8 +71,11 @@ case class EvmState(program: Seq[Instruction], opdStack: List[Result]) {
     * 1) be careful with the order of
     * 2) the type of if-branch and else-branch should be the same
     * */
-    //case (IFELSE ::restProgram,  (...) ::(...) :: (...) ::restOpds) =>
+    case (IFELSE ::restProgram,  (elseb) :: (ifb) :: ResultBool(true) :: restOpds) =>
+      EvmState(restProgram, ifb :: restOpds)
 
+    case (IFELSE ::restProgram,  (elseb) :: (ifb) :: ResultBool(false) :: restOpds) =>
+      EvmState(restProgram, elseb :: restOpds)
 
   }
 
