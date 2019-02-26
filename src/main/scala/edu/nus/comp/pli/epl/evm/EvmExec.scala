@@ -25,7 +25,8 @@ case class EvmState(program: Seq[Instruction], opdStack: List[Result]) {
     case (DIV :: restProgram, ResultInt(n2) :: ResultInt(n1) :: restOpds) =>
       EvmState(restProgram, ResultInt(n1 / n2) :: restOpds)
 
-    //case (POW :: restProgram, ResultInt(n2) :: ResultInt(n1) :: restOpds) =>
+    case (POW :: restProgram, ResultInt(n2) :: ResultInt(n1) :: restOpds) =>
+      EvmState(restProgram, ResultInt(math.pow(n1, n2).toInt) :: restOpds)
 
     case (AND :: restProgram, ResultBool(b2) :: ResultBool(b1) :: restOpds) =>
       EvmState(restProgram, ResultBool(b1 && b2) :: restOpds)
