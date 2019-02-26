@@ -17,25 +17,29 @@ object EplDenotationalSemantics {
       compileHelper(left) ++ compileHelper(right) :+ POW
     case Bin(And, left, right) =>  compileHelper(left) ++ compileHelper(right) :+ AND
     /*add your code for or*/
-    //case Bin(Or, left, right) =>
+    case Bin(Or, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ OR
     case Bin(Lt, left, right) =>  compileHelper(left) ++ compileHelper(right) :+ LT
     /*add your code for lte*/
-    //case Bin(Lte, left, right) =>
+    case Bin(Lte, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ LE
     case Bin(Gt, left, right) =>  compileHelper(left) ++ compileHelper(right) :+ GT
     /*add your code for gte*/
-    //case Bin(Gte, left, right) =>
+    case Bin(Gte, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ GE
     case Bin(Eq, left, right) =>  compileHelper(left) ++ compileHelper(right) :+ EQ
     /*add your code for NEq*/
-    //case Bin(NEq, left, right) =>
+    case Bin(NEq, left, right) =>
+      compileHelper(left) ++ compileHelper(right) :+ NEQ
     case Ury(Not, inner) => compileHelper(inner) :+ NOT
     /*add your code for neg*/
-    //case Ury(Minus, inner) => compileHelper(inner) :+ NEG
+    case Ury(Minus, inner) => compileHelper(inner) :+ NEG
     case Num(value) => Seq(LDCI(value))
     /*add your code for bool value*/
-    //case Bool(value) => Seq(LDCB(value))
+    case Bool(value) => Seq(LDCB(value))
 
     /*add your code for if else statement*/
-    //case IfElse (cond, ifb, elseb) => compileHelper(cond) ++ compileHelper(ifb) ++ compileHelper(elseb) :+ IFELSE
+    case IfElse (cond, ifb, elseb) => compileHelper(cond) ++ compileHelper(ifb) ++ compileHelper(elseb) :+ IFELSE
   }
 
 
