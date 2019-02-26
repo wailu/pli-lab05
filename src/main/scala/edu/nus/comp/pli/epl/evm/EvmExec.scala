@@ -77,12 +77,17 @@ case class EvmState(program: Seq[Instruction], opdStack: List[Result]) {
     * 1) be careful with the order of
     * 2) the type of if-branch and else-branch should be the same
     * */
-    case (IFELSE ::restProgram,  (elseb) :: (ifb) :: ResultBool(true) :: restOpds) =>
-      EvmState(restProgram, ifb :: restOpds)
+    case (IFELSE :: restProgram,  ResultInt(elseb) :: ResultInt(ifb) :: ResultBool(true) :: restOpds) =>
+      EvmState(restProgram, ResultInt(ifb) :: restOpds)
 
-    case (IFELSE ::restProgram,  (elseb) :: (ifb) :: ResultBool(false) :: restOpds) =>
-      EvmState(restProgram, elseb :: restOpds)
+    case (IFELSE :: restProgram,  ResultInt(elseb) :: ResultInt(ifb) :: ResultBool(false) :: restOpds) =>
+      EvmState(restProgram, ResultInt(elseb) :: restOpds)
 
+    case (IFELSE :: restProgram, ResultBool(elseb) :: ResultBool(ifb) :: ResultBool(true) :: restOpds) =>
+      EvmState(restProgram, ResultBool(ifb) :: restOpds)
+
+    case (IFELSE :: restProgram, ResultBool(elseb) :: ResultBool(ifb) :: ResultBool(false) :: restOpds) =>
+      EvmState(restProgram, ResultBool(elseb) :: restOpds)
   }
 
   def execute: Result =
